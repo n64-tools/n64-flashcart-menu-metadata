@@ -1,0 +1,30 @@
+name: Generate Release Metadata
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+jobs:
+  generate-release-metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Resize images
+        run: pip install Pillow && python release_generate_resized_images.py
+
+      - name: Add descriptions
+        run: python release_generate_descriptions.py
+
+      - name: Upload release/metadata artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-metadata
+          path: release
