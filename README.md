@@ -28,3 +28,8 @@ So that they can be consumed at a reasonable speed.
 This will (hopefully) happen as a release lib.
 
 We can also generate a `thumbnail`, which may help.
+
+
+## Atributions
+ABeezy from: 
+* https://forums.launchbox-app.com/files/category/127-nintendo-64/
