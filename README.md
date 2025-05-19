@@ -29,6 +29,9 @@ This will (hopefully) happen as a release lib.
 
 We can also generate a `thumbnail`, which may help.
 
+## to sort
+All files in the `to_sort` folder have not yet been added to the metadata and need adding/converting.
+
 
 ## Atributions
 ABeezy from: 
