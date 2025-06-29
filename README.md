@@ -48,8 +48,8 @@ Also:
 
 
 ## Releases
-Run the `generate_release.ps1` script.
-It currently only handles files called `description.txt`
+Run the `tools/release_populate_descriptions.ps1` script.
+It only handles files called `description.txt` within the root `metadata` folder.
 
 Files contained in the directory of `media-type/destination code` with a type of `E` will be moved to parent `unique code` directory to use them as a failback (rather than multiple duplicate files for each).
 
