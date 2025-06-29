@@ -15,7 +15,7 @@ It uses the following files organised by the ROM's Game code (each character as 
 The [Game Code](https://n64brew.dev/wiki/ROM_Header) is 4 characters long consisting of:
 * The category code (one character)
 * The unique code (two characters)
-* The destination code (one character)
+* The media-type/destination code (one character)
 
 For instance, Goldeneye USA would be `metadata/N/G/E/E`
 
@@ -46,6 +46,12 @@ Also:
 * Folders are unlikely to not contain `description.txt` files and contents.
 * There is no new/current boxart available (yet) for PAL ROM's.
 
+
+## Releases
+Run the `generate_release.ps1` script.
+It currently only handles files called `description.txt`
+
+Files contained in the directory of `media-type/destination code` with a type of `E` will be moved to parent `unique code` directory to use them as a failback (rather than multiple duplicate files for each).
 
 
 ## Atributions
