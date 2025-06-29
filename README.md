@@ -24,6 +24,7 @@ For speed on flashcarts, traversing multiple files by filename is slow, whereas 
 
 ## Description
 This is the first paragraph contained on the back of the boxart as a description shown to the menu.
+A good place to start when deciding which ones to add first would be: https://www.nintendolife.com/guides/50-best-nintendo-64-games-of-all-time#top-10
 
 ## Images
 Before they can be used, they need to be converted to either:
