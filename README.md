@@ -11,17 +11,17 @@ It uses the following files organised by the ROM's Game code (each character as 
 
 ### Game Code
 The [Game Code](https://n64brew.dev/wiki/ROM_Header) is 4 characters long consisting of:
-* The category code (one character)
+* The media-type-category code (one character)
 * The unique code (two characters)
 * The destination-market-region code (one character)
 
 For instance, Goldeneye USA would be `metadata/N/G/E/E`
 
 ### Why this is needed
-For speed on flashcarts, traversing multiple files by filename is slow, whereas accessing them by folder is exponentially faster.
+For speed on flashcarts (using FatFS), traversing multiple files by filename is slow, whereas accessing them by folder is exponentially faster.
 
 ## Description
-This is the first paragraph contained on the back of the original boxart. It will be used within the menu as a description of the ROM to give the atmosphere of a game, without being able to read the original text (due to screen resolution).
+This should be (at least) the first paragraph contained on the back of the original boxart. It will be used within the menu as a description of the ROM to give the atmosphere of a game, without being able to read the original text (due to screen resolution).
 
 > [!TIP]
 > A good place to start when deciding which ones to add first (via pull requests) would be: https://www.nintendolife.com/guides/50-best-nintendo-64-games-of-all-time
