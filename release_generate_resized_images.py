@@ -14,7 +14,7 @@ SIZES = {
 def resize_image(path, size, out_path):
     with Image.open(path) as img:
         img = img.convert("RGBA")
-        img = img.resize(size, Image.LANCZOS)
+        img = img.resize(size, Image.Resampling.LANCZOS)
         img.save(out_path)
 
 def process_metadata(metadata_dir, output_dir):
