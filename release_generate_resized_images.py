@@ -1,4 +1,15 @@
-# Requires: Pillow (pip install pillow)
+# ---------------------------------------------------------------------------------
+# Game Art Automation Script
+# Version: 0.1.0
+#
+# Description:
+# This script automatically prepares box art for N64 flashcart menus that use
+# a Game Code-based directory structure.
+#
+# Prerequisites:
+# - Python 3 (https://www.python.org/downloads/)
+# - Pillow library (run 'pip install Pillow' in your terminal/cmd)
+# ---------------------------------------------------------------------------------
 import os
 from PIL import Image
 
@@ -7,7 +18,11 @@ SIZES = {
     "boxart_front.png": (158, 112),
     "boxart_back.png": (158, 112),
     "boxart_top.png": (158, 22),
+    "boxart_bottom.png": (158, 22),
+    "boxart_left.png": (112, 22),
+    "boxart_right.png": (112, 22),
     "gamepak_front.png": (158, 112),
+    "gamepak_back.png": (158, 112),
     # Add more if needed
 }
 

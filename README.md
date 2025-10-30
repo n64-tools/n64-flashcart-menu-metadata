@@ -7,8 +7,12 @@ It uses the following files organised by the ROM's Game code (each character as 
 
 * boxart_front.png
 * boxart_back.png
-* boxart_spine.png
+* boxart_top.png
+* boxart_bottom.png
+* boxart_left.png
+* boxart_right.png
 * gamepak_front.png
+* gamepak_back.png
 * description.txt
 
 ### Game Code
