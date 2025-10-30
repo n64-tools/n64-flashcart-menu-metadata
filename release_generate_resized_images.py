@@ -6,7 +6,7 @@ from PIL import Image
 SIZES = {
     "boxart_front.png": (158, 112),
     "boxart_back.png": (158, 112),
-    "boxart_spine.png": (158, 112),
+    "boxart_spine.png": (158, 22),
     "gamepak_front.png": (158, 112),
     # Add more if needed
 }
