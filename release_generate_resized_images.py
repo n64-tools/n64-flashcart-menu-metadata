@@ -43,8 +43,24 @@ def resize_image(path, valid_sizes, out_path):
             raise ValueError(
                 f"Image '{path}' is too small ({img.width}x{img.height}) for any valid target size: {valid_sizes}"
             )
-        img = img.resize(target_size, Image.Resampling.LANCZOS)
-        img.save(out_path)
+        # Preserve aspect ratio, fit image inside target_size, center on transparent canvas
+        img_ratio = img.width / img.height
+        target_ratio = target_size[0] / target_size[1]
+        if img_ratio > target_ratio:
+            # Image is wider than target: fit width
+            new_width = target_size[0]
+            new_height = round(target_size[0] / img_ratio)
+        else:
+            # Image is taller than target: fit height
+            new_height = target_size[1]
+            new_width = round(target_size[1] * img_ratio)
+        resized_img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+        # Create transparent canvas and paste centered
+        canvas = Image.new("RGBA", target_size, (0, 0, 0, 0))
+        x = (target_size[0] - new_width) // 2
+        y = (target_size[1] - new_height) // 2
+        canvas.paste(resized_img, (x, y))
+        canvas.save(out_path)
 
 def _print_progress_bar(idx, total, width=40, msg=""):
     if total <= 0:
