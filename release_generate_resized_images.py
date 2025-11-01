@@ -17,23 +17,33 @@ import traceback
 import shutil
 from PIL import Image
 
-# Suggested sizes
+# Suggested sizes (multiple allowed per type)
 SIZES = {
-    "boxart_front.png": (158, 112),
-    "boxart_back.png": (158, 112),
-    "boxart_top.png": (158, 22),
-    "boxart_bottom.png": (158, 22),
-    "boxart_left.png": (112, 22),
-    "boxart_right.png": (112, 22),
-    "gamepak_front.png": (158, 112),
-    "gamepak_back.png": (158, 112),
+    "boxart_front.png": [(158, 112), (112, 158), (129, 112)],  # US/EU, JP, 64DD
+    "boxart_back.png": [(158, 112), (112, 158), (129, 112)],
+    "boxart_top.png": [(158, 22)],
+    "boxart_bottom.png": [(158, 22)],
+    "boxart_left.png": [(112, 22)],
+    "boxart_right.png": [(112, 22)],
+    "gamepak_front.png": [(158, 112)],
+    "gamepak_back.png": [(158, 112)],
     # Add more if needed
 }
 
-def resize_image(path, size, out_path):
+def resize_image(path, valid_sizes, out_path):
     with Image.open(path) as img:
         img = img.convert("RGBA")
-        img = img.resize(size, Image.Resampling.LANCZOS)
+        # Find the first valid size that the image is at least as large as
+        target_size = None
+        for size in valid_sizes:
+            if img.width >= size[0] and img.height >= size[1]:
+                target_size = size
+                break
+        if not target_size:
+            raise ValueError(
+                f"Image '{path}' is too small ({img.width}x{img.height}) for any valid target size: {valid_sizes}"
+            )
+        img = img.resize(target_size, Image.Resampling.LANCZOS)
         img.save(out_path)
 
 def _print_progress_bar(idx, total, width=40, msg=""):
@@ -74,12 +84,10 @@ def process_metadata(metadata_dir, output_dir):
     TTY = sys.stdout.isatty()
     use_progress_bar = (not DEBUG) and TTY
 
-    # determine clean option (env or CLI). --no-clean overrides.
-    clean_from_env = os.getenv("CLEAN_OUTPUT", "0") == "1"
-    clean_from_cli = "--clean" in sys.argv
-    clean_output = bool(clean_from_env or clean_from_cli)
-    if "--no-clean" in sys.argv:
-        clean_output = False
+    # By default, clean output unless --no-clean or NO_CLEAN=1 is set
+    no_clean_env = os.getenv("NO_CLEAN", "0") == "1"
+    no_clean_cli = "--no-clean" in sys.argv
+    clean_output = not (no_clean_env or no_clean_cli)
 
     # Clean the output folder before processing if requested
     if clean_output:
@@ -101,6 +109,7 @@ def process_metadata(metadata_dir, output_dir):
 
     succeeded = 0
     failed = 0
+    skipped = 0
     start_time = time.time()
 
     for idx, (root, file) in enumerate(images, start=1):
@@ -123,6 +132,14 @@ def process_metadata(metadata_dir, output_dir):
             else:
                 print(f"[{idx}/{total}] Processing: {in_path} -> {out_path}", flush=True)
                 print(f"[{idx}/{total}] Saved: {out_path}", flush=True)
+        except ValueError as ve:
+            skipped += 1
+            if use_progress_bar:
+                sys.stdout.write("\n")
+                sys.stdout.flush()
+                print(f"[{idx}/{total}] SKIPPED {in_path}: {ve}", flush=True)
+            else:
+                print(f"[{idx}/{total}] SKIPPED {in_path}: {ve}", flush=True)
         except Exception:
             failed += 1
             if use_progress_bar:
@@ -142,7 +159,7 @@ def process_metadata(metadata_dir, output_dir):
         sys.stdout.write("\n")
         sys.stdout.flush()
 
-    print(f"Done. Processed: {total}, Succeeded: {succeeded}, Failed: {failed}, Elapsed: {elapsed:.2f}s", flush=True)
+    print(f"Done. Processed: {total}, Succeeded: {succeeded}, Failed: {failed}, Skipped (too small): {skipped}, Elapsed: {elapsed:.2f}s", flush=True)
 
 if __name__ == "__main__":
     metadata_dir = "metadata"
