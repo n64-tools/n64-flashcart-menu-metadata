@@ -14,6 +14,7 @@ import os
 import sys
 import time
 import traceback
+import shutil
 from PIL import Image
 
 # Suggested sizes
@@ -45,11 +46,44 @@ def _print_progress_bar(idx, total, width=40, msg=""):
     sys.stdout.write(f"\r{bar} {idx}/{total} {percent_text} {msg}")
     sys.stdout.flush()
 
+def clean_output_dir(output_dir):
+    """Remove all contents of output_dir and recreate it empty."""
+    if not output_dir:
+        return
+    if os.path.exists(output_dir):
+        try:
+            shutil.rmtree(output_dir)
+        except Exception:
+            # best-effort fallback if rmtree fails
+            for root, dirs, files in os.walk(output_dir, topdown=False):
+                for name in files:
+                    try:
+                        os.unlink(os.path.join(root, name))
+                    except Exception:
+                        pass
+                for name in dirs:
+                    try:
+                        os.rmdir(os.path.join(root, name))
+                    except Exception:
+                        pass
+    os.makedirs(output_dir, exist_ok=True)
+
 def process_metadata(metadata_dir, output_dir):
     # detect debug mode and whether stdout is a TTY
     DEBUG = os.getenv("DEBUG", "0") == "1" or ("--debug" in sys.argv)
     TTY = sys.stdout.isatty()
     use_progress_bar = (not DEBUG) and TTY
+
+    # determine clean option (env or CLI). --no-clean overrides.
+    clean_from_env = os.getenv("CLEAN_OUTPUT", "0") == "1"
+    clean_from_cli = "--clean" in sys.argv
+    clean_output = bool(clean_from_env or clean_from_cli)
+    if "--no-clean" in sys.argv:
+        clean_output = False
+
+    # Clean the output folder before processing if requested
+    if clean_output:
+        clean_output_dir(output_dir)
 
     # Gather all matching files first so we can report a total
     images = []
@@ -113,4 +147,7 @@ def process_metadata(metadata_dir, output_dir):
 if __name__ == "__main__":
     metadata_dir = "metadata"
     output_dir = "release"
+    # example usage:
+    #   python script.py --clean
+    # or set env CLEAN_OUTPUT=1
     process_metadata(metadata_dir, output_dir)
