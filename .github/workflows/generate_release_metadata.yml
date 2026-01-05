@@ -27,6 +27,12 @@ jobs:
       - name: Add descriptions
         run: python release_generate_descriptions.py
 
+      - name: Add metadata ini
+        run: python release_generate_metadata_ini.py
+
+      # - name: Prepare ROM meta ZIP files with no compression
+      #   run: python release_generate_metadata_zips.py
+
       - name: Upload release/metadata artifact
         uses: actions/upload-artifact@v4
         with:
