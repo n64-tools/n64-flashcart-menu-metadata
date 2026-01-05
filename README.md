@@ -38,14 +38,18 @@ For instance, Goldeneye USA would be `metadata/N/G/E/E`.
 For speed on flashcarts, traversing multiple files by filename is slow, whereas accessing them by folder is exponentially faster.
 
 ## Description
-This should be (at least) the first paragraph contained on the back of the original boxart. It will be used within the menu as a description of the ROM to give the atmosphere of a game, without being able to read the original text (due to screen resolution).
+This should be (at least) the first paragraph contained on the back of the original boxart. It will be used within the menu as a description of the ROM to give the atmosphere of a game, without being able to read the original back boxart text (due to screen resolution).
 
 > [!TIP]
 > A good place to start when deciding which ones to add first (via pull requests) would be: https://www.nintendolife.com/guides/50-best-nintendo-64-games-of-all-time
 
+## Metadata
+A `metadata.ini` file implementing the [ROM metadata.ini](https://n64brew.dev/wiki/ROM_Metadata) file structure for external metadata.
+
 ## Images
 Before they can be used, they need to be converted to either:
 - png images reduced in size.
+- jpg images reduced in size (not supported yet).
 
 So that they can be consumed at a reasonable speed.
 
