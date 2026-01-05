@@ -4,6 +4,8 @@
 This is a filesystem database that can be used by flashcart and menu emulators to better organise ROM information.
 It is initially designed for use as metadata for the [N64 Flashcart Menu](https://github.com/Polprzewodnikowy/N64FlashcartMenu)
 
+It works towards fully implementing the [ROM Metadata](https://n64brew.dev/wiki/ROM_Metadata) structure.
+
 ## Structure
 It uses the following files organised by the ROM's Game code (each character as sub folders) within the `metadata` folder:
 
@@ -16,6 +18,7 @@ It uses the following files organised by the ROM's Game code (each character as 
 - gamepak_front.png
 - gamepak_back.png
 - description.txt
+- metadata.ini
 
 ### Game Code
 The [Game Code](https://n64brew.dev/wiki/ROM_Header) is 4 characters long consisting of:
