@@ -73,8 +73,9 @@ Also:
 
 
 ## Releases
-- Run `release_generate_resized_images.py -- clean` to generate reduced size images.
-- Run `release_generate_descriptions.py` to add `description.txt`.
+- Run `release_generate_resized_images.py -- clean` to generate and add reduced size image files.
+- Run `release_generate_descriptions.py` to add `description.txt` files.
+- Run `release_generate_metadata_ini.py` to add `metadata.ini` files.
 
 Files contained in the directory of `media-type/destination code` with a type of `E` will be moved to parent `unique code` directory to use them as a failback (rather than multiple duplicate files for each).
 
