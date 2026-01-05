@@ -6,6 +6,15 @@ It is initially designed for use as metadata for the [N64 Flashcart Menu](https:
 
 It works towards fully implementing the [ROM Metadata](https://n64brew.dev/wiki/ROM_Metadata) structure.
 
+## TODO
+All files in the `to_sort` folder have not yet been added to the metadata and need adding/converting.
+
+Also:
+- Files already added to the `metadata` folder may be named incorrectly.
+- Folders are unlikely to not contain `description.txt` files and contents.
+- Folders are unlikely to not contain `metadata.ini` files and contents.
+- There is no new/current boxart available (yet) for PAL ROM's.
+
 ## Structure
 It uses the following files organised by the ROM's Game code (each character as sub folders) within the `metadata` folder:
 
@@ -37,14 +46,17 @@ For instance, Goldeneye USA would be `metadata/N/G/E/E`.
 ### Why this is needed
 For speed on flashcarts, traversing multiple files by filename is slow, whereas accessing them by folder is exponentially faster.
 
+
 ## Description
 This should be (at least) the first paragraph contained on the back of the original boxart. It will be used within the menu as a description of the ROM to give the atmosphere of a game, without being able to read the original back boxart text (due to screen resolution).
 
 > [!TIP]
 > A good place to start when deciding which ones to add first (via pull requests) would be: https://www.nintendolife.com/guides/50-best-nintendo-64-games-of-all-time
 
+
 ## Metadata
 A `metadata.ini` file implementing the [ROM metadata.ini](https://n64brew.dev/wiki/ROM_Metadata) file structure for external metadata.
+
 
 ## Images
 Before they can be used, they need to be converted to either:
@@ -63,16 +75,9 @@ When processing:
 - GamePak images are generally landscape, e.g. 158x112.
 - Boxart top and bottom images are generally landscape, e.g. 158x22.
 
-## to sort
-All files in the `to_sort` folder have not yet been added to the metadata and need adding/converting.
-
-Also:
-- Files already added to the `metadata` folder are likely named incorrectly.
-- Folders are unlikely to not contain `description.txt` files and contents.
-- There is no new/current boxart available (yet) for PAL ROM's.
-
 
 ## Releases
+Assuming you have a python environment:
 - Run `release_generate_resized_images.py -- clean` to generate and add reduced size image files.
 - Run `release_generate_descriptions.py` to add `description.txt` files.
 - Run `release_generate_metadata_ini.py` to add `metadata.ini` files.
