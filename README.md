@@ -38,7 +38,7 @@ The [Game Code](https://n64brew.dev/wiki/ROM_Header) is 4 characters long consis
 For instance, Goldeneye USA would be `metadata/N/G/E/E`.
 
 > [!TIP]
-> destination-market-region `E` will be used as the fallback ROM description text (when available), other destination-market-region folders will be used if the destination-market-region is different and the description file exists.
+> destination-market-region `E` will be used as the fallback ROM metadata content (when available), other destination-market-region folders will be used if the destination-market-region is different and the metadata.ini file exists.
 
 > [!WARNING]
 > destination-market-region ROM's may contain multiple languages. We (currently) only aim to support English.
