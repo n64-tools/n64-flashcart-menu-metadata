@@ -41,12 +41,14 @@ SIZES = {
 def resize_image(path, valid_sizes, out_path):
     with Image.open(path) as img:
         img = img.convert("RGBA")
-        # Find the first valid size that the image is at least as large as
-        target_size = None
-        for size in valid_sizes:
-            if img.width >= size[0] and img.height >= size[1]:
-                target_size = size
-                break
+        # Of the valid sizes the image is large enough for, use the one shaped
+        # most like the image. Taking the first that fits instead means a
+        # portrait scan matches the landscape canvas listed first and is
+        # letterboxed into it: a 1534x2100 Japanese boxart is drawn at 82x112
+        # rather than 112x153, losing about half its area.
+        img_ratio = img.width / img.height
+        usable = [size for size in valid_sizes if img.width >= size[0] and img.height >= size[1]]
+        target_size = min(usable, key=lambda size: abs(size[0] / size[1] - img_ratio), default=None)
         if not target_size:
             raise ValueError(
                 f"Image '{path}' is too small ({img.width}x{img.height}) for any valid target size: {valid_sizes}"
