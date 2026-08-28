@@ -1,18 +1,17 @@
 [![#yourfirstpr](https://img.shields.io/badge/first--timers--only-friendly-blue.svg)](https://github.com/n64-tools/n64-flashcart-menu-metadata/blob/main/CONTRIBUTING.md)
 
 # N64 ROM metadata
-This is a filesystem database that can be used by flashcart and menu emulators to better organise ROM information.
-It is initially designed for use as metadata for the [N64 Flashcart Menu](https://github.com/Polprzewodnikowy/N64FlashcartMenu)
+This is a filesystem database that can be used by flashcart and menu emulators to better organise commercial ROM information implementing the [ROM Metadata](https://n64brew.dev/wiki/ROM_Metadata) structure as closely as possible.
 
-It works towards fully implementing the [ROM Metadata](https://n64brew.dev/wiki/ROM_Metadata) structure.
+It is initially designed for use as metadata for the [N64 Flashcart Menu](https://github.com/Polprzewodnikowy/N64FlashcartMenu), and the latest available release can be downloaded from [here](https://github.com/n64-tools/n64-flashcart-menu-metadata/releases). 
+
+The [Everdrive64 Pro](https://krikzz.com/our-products/cartridges/everdrive-64-pro.html) can also use this metadata when converted using their [custom converter](https://krikzz.com/pub/support/everdrive-64/pro-series/edmeta.zip).
 
 ## TODO
 All files in the `to_sort` folder have not yet been added to the metadata and need adding/converting.
 
 Also:
-- Files already added to the `metadata` folder may be named incorrectly.
-- Folders are unlikely to not contain `description.txt` files and contents.
-- Folders are unlikely to not contain `metadata.ini` files and contents.
+- Folders may not contain `description.txt` files and correct contents.
 - There is no new/current boxart available (yet) for PAL ROM's.
 
 ## Structure
@@ -60,12 +59,12 @@ A `metadata.ini` file implementing the [ROM metadata.ini](https://n64brew.dev/wi
 
 ## Images
 Before they can be used, they need to be converted to either:
-- png images reduced in size.
-- jpg images reduced in size (not supported yet).
+- PNG images reduced in size.
+- JPEG images reduced in size (not supported yet).
 
 So that they can be consumed at a reasonable speed.
 
-We could also generate a `thumbnail` or sprites, which can be consumed by the menu and may help.
+In future, we could also generate a `thumbnail` or sprites, which can be consumed by the menu and may help.
 
 ### Suggested reduced image sizes:
 When processing:
@@ -76,7 +75,7 @@ When processing:
 - Boxart top and bottom images are generally landscape, e.g. 158x22.
 
 
-## Releases
+## Generating Releases
 Assuming you have a python environment:
 - Run `release_generate_resized_images.py -- clean` to generate and add reduced size image files.
 - Run `release_generate_descriptions.py` to add `description.txt` files.
